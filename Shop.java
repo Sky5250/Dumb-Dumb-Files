@@ -9,8 +9,9 @@ public class Shop {
 		double [] prices = new double [100]; 
 		int    [] amounts = new int [500]; 
 		int    [] discount = new int [100];
+		int items = 0;
 		int setup = 0; 
-		int buy = 0; 
+		int buy = 0;  
 		
 		do {
 		System.out.println("This program supports 4 functions:");
@@ -26,7 +27,7 @@ public class Shop {
 		
 
 		if (function == 1) { 
-			Setup(input, names, prices, discount);
+			Setup(input, names, prices, discount, items);
 			setup = 1;
 			}
 		
@@ -34,7 +35,7 @@ public class Shop {
 
 		if (function == 2) { 
 			if (setup == 1)
-				Buy (input, names, amounts); 
+				Buy (input, names, amounts, items); 
 			buy = 1;
 			if (setup != 1)
 				System.out.println("Shop is not set up yet! "); 
@@ -79,21 +80,24 @@ public class Shop {
 	}
 
 // Setup 
-	public static void Setup(Scanner input, String [] names, double [] prices, int [] discount ) {
+	public static int Setup(Scanner input, String [] names, double [] prices, int [] discount, int items) {
 		//ask for # of items to sell 
 		System.out.print("Please enter the number of items to setup shop: "); 
-		int items = input.nextInt();
+		items = input.nextInt();
 		//for loop that commits the names and prices of each item to an array  
 		for (int i = 0; i < items; i++) { 
 			System.out.print("Enter the name of the " + numSuffix(i+1) + " product: ");
 			names[i] = input.next(); 
 			System.out.print("Enter the per package price of " + names[i] + ": ");
 			prices[i] = input.nextDouble(); 
-			System.out.print("Enter the number of packages ('x') to qualify for Sepcial Discount (but 'x' get 1 free) for " + names[i] + ", or 0 if no Special Discount offered: "); 
+			System.out.print("Enter the number of packages ('x') to qualify for Sepcial Discount (buy 'x' get 1 free) for " + names[i] + ", or 0 if no Special Discount offered: "); 
 			discount[i] = input.nextInt(); 
 		}
-			System.out.println("");
+		 System.out.println("");
+		   return items;
+			
 	}
+	
 	
 	//name suffix code 
 		public static String numSuffix(int i) { 
@@ -129,9 +133,9 @@ public class Shop {
 		}
 	
 //Buy 
-	public static void Buy(Scanner input, String [] names, int [] amounts) { 
-		for (int i = 0; i < names.length; i++){
-		System.out.println("Enter the number of " + names[i] + " packages to buy: ");
+	public static void Buy(Scanner input, String [] names, int [] amounts, int items) { 
+		for (int i = 0; i < items; i++){
+		System.out.print("Enter the number of " + names[i] + " packages to buy: ");
 		amounts[i] = input.nextInt(); 
 		}
 		System.out.println(""); 
@@ -146,7 +150,7 @@ public class Shop {
 	}
 //List 
 	public static void List(String [] names, double [] prices, int [] amounts) { 
-		//if (amounts[i] = 1) 
+	    if (amounts[i] == 1){ 
 		//System.out.println(amounts[i] + "package of " + names[i] + " @ $" + prices[i] + " per pkg = $" + amounts[i] * prices [i]);
 		// if (amounts[i] > 1) 
 		//System.out.println(amounts[i] + "packages of " + names[i] + " @ $" + prices[i] + " per pkg = $" + amounts[i] * prices [i]);
@@ -168,7 +172,7 @@ public class Shop {
 	System.out.println("New Sub Total: 			 $" + (subtotal - sdiscount)); 
 	subtotal = subtotal - sdiscount; 
 	//if statement to check if user qualifies for additional discount 
-        //
+    //
 	//System.out.println("Additional + (Adiscountr * 10) + "% Discount: 		-$" + (Adiscountr * subtotal)
 	//discount = Adiscount% * subtotal;
 	//System.out.println("Final Sub Total: 		$" + (subtotal - discount)); 
