@@ -9,6 +9,8 @@ public class Shop {
 		double [] prices = new double [100]; 
 		int    [] amounts = new int [500]; 
 		int    [] discount = new int [100];
+		int setup = 0; 
+		int buy = 0; 
 		
 		do {
 		System.out.println("This program supports 4 functions:");
@@ -22,8 +24,6 @@ public class Shop {
 		int function = input.nextInt(); 
 		System.out.println("");
 		
-		int setup = 0; 
-		int buy = 0; 
 
 		if (function == 1) { 
 			Setup(input, names, prices, discount);
@@ -88,7 +88,7 @@ public class Shop {
 			System.out.print("Enter the name of the " + numSuffix(i+1) + " product: ");
 			names[i] = input.next(); 
 			System.out.print("Enter the per package price of " + names[i] + ": ");
-			prices[i] = input.nextInt(); 
+			prices[i] = input.nextDouble(); 
 			System.out.print("Enter the number of packages ('x') to qualify for Sepcial Discount (but 'x' get 1 free) for " + names[i] + ", or 0 if no Special Discount offered: "); 
 			discount[i] = input.nextInt(); 
 		}
@@ -168,7 +168,7 @@ public class Shop {
 	System.out.println("New Sub Total: 			 $" + (subtotal - sdiscount)); 
 	subtotal = subtotal - sdiscount; 
 	//if statement to check if user qualifies for additional discount 
-   //
+        //
 	//System.out.println("Additional + (Adiscountr * 10) + "% Discount: 		-$" + (Adiscountr * subtotal)
 	//discount = Adiscount% * subtotal;
 	//System.out.println("Final Sub Total: 		$" + (subtotal - discount)); 
