@@ -5,13 +5,17 @@ public class Shop {
 	public static void main(String[] args) {
 		Scanner input = new Scanner (System.in);
 		
-		String [] names = new String [100];
-		double [] prices = new double [100]; 
-		int    [] amounts = new int [500]; 
-		int    [] discount = new int [100];
+		
+		int max = 100; 
+		
+		String [] names = new String [max];
+		double [] prices = new double [max]; 
+		int    [] amounts = new int [max]; 
+		int    [] discount = new int [max];
 		int items = 0;
 		int setup = 0; 
-		int buy = 0;  
+		int buy = 0; 
+		int checkout = 0;
 		
 		do {
 		System.out.println("This program supports 4 functions:");
@@ -60,8 +64,9 @@ public class Shop {
 			
 		if (function == 4) { 
 			if (setup == 1 && buy == 1) { 
-				Checkout (prices, amounts);
-				
+				Checkout (prices, amounts); 
+				System.out.println("-------------------------------------------------"); 
+				checkout = 1; 
 			}
 			if (setup != 1) {
 				System.out.println("Shop is not set up yet! ");
@@ -75,7 +80,18 @@ public class Shop {
 		else if (function < 1 || function > 4) { 
 			System.out.println("Error! Function " + function + " was not an option.");
 			System.out.println("");
-		}
+			}
+		if (checkout == 1); 
+			System.out.print("Would you like to re-run (1 for yes, 0 for no)?");
+			int rerun = input.nextInt();
+			System.out.println("-------------------------------------------------"); 
+			if (rerun == 1) {
+				continue;
+			}
+			if (rerun == 0) {
+				break;
+			}
+				
 		} while (true);
 	}
 
@@ -94,8 +110,7 @@ public class Shop {
 			discount[i] = input.nextInt(); 
 		}
 		 System.out.println("");
-		   return items;
-			
+		 return items;
 	}
 	
 	
@@ -134,28 +149,37 @@ public class Shop {
 	
 //Buy 
 	public static void Buy(Scanner input, String [] names, int [] amounts, int items) { 
-		for (int i = 0; i < items; i++){
-		System.out.print("Enter the number of " + names[i] + " packages to buy: ");
-		amounts[i] = input.nextInt(); 
+		for (int i = 0; i < names.length; i++){
+			System.out.print("Enter the number of " + names[i] + " packages to buy: ");
+			amounts[i] = input.nextInt(); 
 		}
-		System.out.println(""); 
-		System.out.println("Enter the dollar amount to qualify for Additional Discount (or 0 if none offered): ");
+			System.out.println(""); 
+			System.out.print("Enter the dollar amount to qualify for Additional Discount (or 0 if none offered): ");
+			
 		int Adiscount$ = input.nextInt(); 
-		System.out.println("Enter the Additional Discount rate (e.g., 0.1 for 10%): ");
+			System.out.println("Enter the Additional Discount rate (e.g., 0.1 for 10%): ");
+			
 		double Adiscountr = input.nextDouble(); 
 		if(Adiscountr < 0 || Adiscountr > 0.5) {
-		 System.out.println("Invalid input. Enter a value > 0 and <= 0.5: "); 
-		 Adiscountr = input.nextDouble(); 
-	 }
+			System.out.print("Invalid input. Enter a value > 0 and <= 0.5: "); 
+			Adiscountr = input.nextDouble(); 
+		}
+		System.out.println("");
 	}
 //List 
 	public static void List(String [] names, double [] prices, int [] amounts) { 
-	    if (amounts[i] == 1){ 
-		//System.out.println(amounts[i] + "package of " + names[i] + " @ $" + prices[i] + " per pkg = $" + amounts[i] * prices [i]);
-		// if (amounts[i] > 1) 
-		//System.out.println(amounts[i] + "packages of " + names[i] + " @ $" + prices[i] + " per pkg = $" + amounts[i] * prices [i]);
-		//if (amounts[i] == 0) 
-		//System.out.println("No items were purchased.");
+	   for( int i = 0; i < names.length; i++) {
+	   if (amounts[i] == 1){ 
+		   System.out.println(amounts[i] + " package of " + names[i] + " @ $" + prices[i] + " per pkg = $" + amounts[i] * prices [i]);
+	   } 
+	   else if (amounts[i] > 1) {
+			System.out.println(amounts[i] + " packages of " + names[i] + " @ $" + prices[i] + " per pkg = $" + amounts[i] * prices [i]);
+	   } 
+	   else if (amounts[i] == 0) {
+		   System.out.println("No items were purchased.");
+	   } 
+	   } 
+	   System.out.println("");
 	}
 //Checkout 
 	public static void Checkout(double [] prices, int [] amounts) { 
@@ -178,6 +202,7 @@ public class Shop {
 	//System.out.println("Final Sub Total: 		$" + (subtotal - discount)); 
 	//System.out.println(""); 
 	//System.out.println("System.out.println(Thanks for coming!); 
+	//System.out.println("");
 	
 	}
 
